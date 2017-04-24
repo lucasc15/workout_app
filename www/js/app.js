@@ -10,9 +10,9 @@ var app = angular.module('workoutApp', ['ui.router'])
 		     url: '/home',
 		     templateUrl: 'templates/home.html',
 		 })
-	         .state('new-workout', {
-		     url: '/new-workout',
-		     templateUrl: 'templates/new-workout.html'
+	         .state('newworkout', {
+		     url: '/newworkout',
+		     templateUrl: 'templates/newworkout.html'
 		 });
 	 }]
     );

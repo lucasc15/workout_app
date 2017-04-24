@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<widget id="com.vjlfitness.workoutapp" version="2.0.0" xmlns="https://www.w3.org/ns/widgets" xmlns:gap="http://phonegap/ns/1.0">
-    <name>VJL Fitness Workout App</name>
-    <description>A simple app to track workouts and view progress</description>
-    <author>Lucas Currah, Vu Nguyen, Jon Nagata</author>
-    <content src="index.html" />
-    <access origin="*" />
-    <preference name="loglevel" value="DEBUG" />
-</widget>

@@ -1,0 +1,20 @@
+{
+  "name": "workout_app",
+  "version": "1.0.0",
+  "description": "An application to record and view workout data and progress",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lucasc15/workout_app.git"
+  },
+  "author": "Lucas Currah, Vu Nguyen, Jon Nagata",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lucasc15/workout_app/issues"
+  },
+  "homepage": "https://github.com/lucasc15/workout_app#readme"
+}
+

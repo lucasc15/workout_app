@@ -1,4 +1,5 @@
 # Project
+platforms/
 www/lib/bower_components
 # Logs
 logs

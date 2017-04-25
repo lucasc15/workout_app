@@ -4,71 +4,38 @@
   <div class="table-responsive">          
   <table class="table">
     <thead>
-      <tr>
+      <tr ng-if="weightExercises.length">
         <th>Name</th>
         <th>Reps</th>
         <th>Weight</th>
         <th>Cals</th>
-
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>Bench</td>
-        <td>12</td>
-        <td>170</td>
-        <td>90</td>
-
+      <tr ng-repeat="w for w in weightExercises" ng-id="weightExercises.length">
+	<td>{{ w.name }}</td>
+	<td>{{ w.reps }}</td>
+	<td>{{ w.sets }}</td>
+	<td>{{ w.cals }}</td>
+	<td>{{ w.notes }}</td>
       </tr>
-    </tbody>
-	    <tbody>
-      <tr>
-        <td>Bench</td>
-        <td>12</td>
-        <td>170</td>
-        <td>90</td>
-
+      <tr ng-if="cardioExercises.length">
+	<th>Name</th>
+	<th>Distance</th>
+	<th>Time</th>
+	<th>Cals</th>
       </tr>
-    </tbody>
-	    <tbody>
-      <tr>
-        <td>Bench</td>
-        <td>12</td>
-        <td>170</td>
-        <td>90</td>
-
-      </tr>
-    </tbody>
-	    <tbody>
-      <tr>
-        <td>Bench</td>
-        <td>12</td>
-        <td>170</td>
-        <td>90</td>
-
-      </tr>
-    </tbody>
-	    <tbody>
-      <tr>
-        <td>Bench</td>
-        <td>12</td>
-        <td>170</td>
-        <td>90</td>
-
-      </tr>
-    </tbody>
-	    <tbody>
-      <tr>
-        <td>Bench</td>
-        <td>12</td>
-        <td>170</td>
-        <td>90</td>
-
+      <tr ng-repeat="c for c in cardioExercises" ng-if="cardioExercises.length">
+	<td>{{ c.name }}</td>
+	<td>{{ c.distance }}</td>
+	<td>{{ c.time }}</td>
+	<td>{{ c.cals }}</td>
+	<td>{{ c.notes }}</td>
       </tr>
     </tbody>
   </table>
-  </div>
-</div>
+  </div> <!-- End table -->
+</div> <!-- End Container  -->
 
 <p>
   <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
@@ -77,33 +44,25 @@
 </p>
 <br>
 <div class="collapse" id="collapseExample">
-	    <div class="form-group">
-      <label for="sel1"> Name</label>
-      <select class="form-control" id="sel1">
-        <option>Bench</option>
-        <option>Squat</option>
-        <option>Deadlift</option>
-        <option>Rows</option>
-      </select>
-    </div>
+  <div class="form-group">
+      <label for="sel1">Name</label>
+      <select class="form-control" id="sel1" ng-model="selectedExercise" ng-options="e.Name for e in exercises">
+     </select>
+   </div>
 	
   <div class="form-group">
     <label for="data">Reps</label>
     <input type="data" class="form-control" id="data">
   </div>
-  
+
+  <div class="form-group">
+    <label for="data">Sets</label>
+    <input type="data" class="form-control" id="data">
+  </div>
 
   <div class="form-group">
     <label for="data">Weight</label>
     <input type="data" class="form-control" id="data">
   </div>
-  
-  <div class="form-group">
-    <label for="data">Cals</label>
-    <input type="data" class="form-control" id="data">
-  </div>
-	  <button type="submit" class="btn btn-default">Submit</button>
-</div>
-</form>
-</div>
-</body>
+  <button ng-click="addWorkoutExercise()" class="btn btn-default">Submit</button>
+</div> <!-- End collapse -->

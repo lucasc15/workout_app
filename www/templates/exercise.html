@@ -1,58 +1,39 @@
 <div class="container">
   <h2>New Exercise</h2>
-                                                                                     
-  <div class="table-responsive">          
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Cals</th>
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+	<tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Cals</th>
+	</tr>
+      </thead>
+      <tbody>
+	<tr ng-repeat="e for e in exercises">
+	  <td> {{ e.Name }} </td>
+	  <td> {{ e.Type }} </td>
+	  <td> {{ e.Cals }} </td>
+	</tr>
+      </tbody>
+    </table>
+  </div>                                                             
 
-
-      </tr>
-    </thead>
-	</thead>
-    <tbody>
-      <tr>
-        <td>Bench</td>
-        <td>Upper Body</td>
-        <td>100</td>
-
-
-      </tr>
-    </tbody>
-    
-  </table>
-  </div>
-</div>
-
-
-<p>
-  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-    New Exercise
-  </button>
-</p>
-<div class="collapse" id="collapseExample">
-  <div class="form-group">
-    <label for="data">Name</label>
-    <input type="data" class="form-control" id="data">
-  </div>
-  
+  <p>
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+      New Exercise
+    </button>
+  </p>
+  <div class="collapse" id="collapseExample">
+    <div class="form-group">
+      <label for="data">Name</label>
+      <input type="data" class="form-control" id="data" ng-model="newExerciseName">
+    </div>
     <div class="form-group">
       <label for="sel1"> Type</label>
-      <select class="form-control" id="sel1">
-        <option>Bench</option>
-        <option>Squat</option>
-
+      <select class="form-control" id="sel1" ng-model="selectedExercise" ng-options="e.Name for e in exerciseTypes">
       </select>
     </div>
-  <div class="form-group">
-    <label for="data">Cals</label>
-    <input type="data" class="form-control" id="data">
-  </div>
-	  <button type="submit" class="btn btn-default">Submit</button>
-</div>
-</form>
-</div>
-</body>
+    <button ng-click="addExercise()" class="btn btn-default">Submit</button>
+  </div> <!-- End of collapse form -->
+</div><!-- End of container  -->

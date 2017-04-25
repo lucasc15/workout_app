@@ -18,19 +18,25 @@ var app = angular.module('workoutApp', ['ui.router'])
 		     url: '/inspiration',
 		     templateUrl: 'templates/inspiration.html' 
 		 })
-		 	 .state('exercise', {
+		 .state('exercise', {
 		     url: '/exercise',
-		     templateUrl: 'templates/exercise.html' 
+		     templateUrl: 'templates/exercise.html',
+		     controller: 'exerciseController'
 		 })
 	         .state('personal', {
 		     url: '/personal',
-		     templateUrl: 'templates/personal.html'
-			 
+		     templateUrl: 'templates/personal.html',
+		     controller: 'personalDataController'
 		 })
 	         .state('newworkout', {
 		     url: '/newworkout',
 		     templateUrl: 'templates/newworkout.html'
-			 
+		     controller: 'workoutController',
+		 })
+	         .state('workouts', {
+		     url: '/workouts',
+		     templateUrl: 'templates/workout.html',
+		     controller: 'workoutListController'
 		 });
 	 }]
     );

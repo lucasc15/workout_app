@@ -12,6 +12,12 @@ To setup, clone the repository, then complete the following
 *`cordova prepare` to allow for emulation
 *`ripple emulate` to test in the browser.
 
+Sometimes random errors stop it from running, and I found this helped:
+
+*`cordova platform remove android`
+*`cordova platform add android`
+*`cordova prepare`
+
 Requires cordova and ripple installed.
 
 *`npm install cordova`

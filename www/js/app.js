@@ -18,13 +18,13 @@ var app = angular.module('workoutApp', ['ui.router'])
 		     url: '/progress',
 		     templateUrl: 'templates/progress.html' 
 		 })
-		 	 .state('exersize', {
-		     url: '/exersize',
-		     templateUrl: 'templates/exersize.html' 
+		 	 .state('exercise', {
+		     url: '/exercise',
+		     templateUrl: 'templates/exercise.html' 
 		 })
-	         .state('workout', {
-		     url: '/workout',
-		     templateUrl: 'templates/workout.html'
+	         .state('personal', {
+		     url: '/personal',
+		     templateUrl: 'templates/personal.html'
 			 
 		 })
 	         .state('newworkout', {

@@ -5,6 +5,7 @@ angular.module('workoutApp')
     function($scope, exerciseService) {
 
 	$scope.selectedExercise = null;
+	$scope.exercises = [];
 	$scope.hideNewExerciseForm = true;
 
 	$scope.getExerciseTypes = function() {
@@ -16,9 +17,12 @@ angular.module('workoutApp')
 	$scope.addExercise = function() {
 	    // adds new exercises to the database;
 	    if ($scope.selectedExercise != null) {
-		errors = exerciseService.addExercise($scope.selectExercise);
+		errors = exerciseService.addExercise(
+		    $scope.selectedExercise.Name;
+		    $scope.selectedExercise.Type;
+		);
 	    }
-	    $scope.selectedExercise = null;
+	    $scope.selectedExercise = $scope.;
 	    $scope.hideNewExerciseForm();
 	}
 
@@ -51,6 +55,7 @@ angular.module('workoutApp')
 		 $scope.addWorkoutExercise = function() {
 		     // function to add a new exercise to a workout
 		     if ($scope.selectedExercise.MajorType == 'Weight') {
+			 if ($scope.newReps !
 			 errors = workoutService.addNewExercise(
 			     $scope.selectedExercise.Name,
 			     $scope.selectedExercise.Type,

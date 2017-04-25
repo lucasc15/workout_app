@@ -14,9 +14,9 @@ var app = angular.module('workoutApp', ['ui.router'])
 		     url: '/health',
 		     templateUrl: 'templates/health.html'
 		 })
-	         .state('progress', {
-		     url: '/progress',
-		     templateUrl: 'templates/progress.html' 
+	         .state('inspiration', {
+		     url: '/inspiration',
+		     templateUrl: 'templates/inspiration.html' 
 		 })
 		 	 .state('exercise', {
 		     url: '/exercise',

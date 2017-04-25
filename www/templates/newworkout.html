@@ -69,37 +69,41 @@
   </table>
   </div>
 </div>
+
 <p>
   <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-    New Workout
+    New Exercise
   </button>
 </p>
+<br>
 <div class="collapse" id="collapseExample">
-<div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Workout Name
-  </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item" href="#">Bench</a><br>
-    <a class="dropdown-item" href="#">Squat</a><br>
-    <a class="dropdown-item" href="#">Deadlift</a>
-  </div>
-</div>
-
-<br>
-<br>
-<br>
-
+	    <div class="form-group">
+      <label for="sel1"> Name</label>
+      <select class="form-control" id="sel1">
+        <option>Bench</option>
+        <option>Squat</option>
+        <option>Deadlift</option>
+        <option>Rows</option>
+      </select>
+    </div>
+	
   <div class="form-group">
-    <label for="data">Date</label>
+    <label for="data">Reps</label>
     <input type="data" class="form-control" id="data">
   </div>
-<form class="form-inline" style="width:100%";>
+  
+
   <div class="form-group">
     <label for="data">Weight</label>
     <input type="data" class="form-control" id="data">
-
-	  <button type="submit" class="btn btn-default">Submit</button>
   </div>
-
+  
+  <div class="form-group">
+    <label for="data">Cals</label>
+    <input type="data" class="form-control" id="data">
+  </div>
+	  <button type="submit" class="btn btn-default">Submit</button>
 </div>
+</form>
+</div>
+</body>

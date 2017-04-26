@@ -12,7 +12,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="w for w in weightExercises" ng-id="weightExercises.length">
+      <tr ng-repeat="w in weightExercises" ng-id="weightExercises.length">
 	<td>{{ w.name }}</td>
 	<td>{{ w.reps }}</td>
 	<td>{{ w.sets }}</td>
@@ -25,7 +25,7 @@
 	<th>Time</th>
 	<th>Cals</th>
       </tr>
-      <tr ng-repeat="c for c in cardioExercises" ng-if="cardioExercises.length">
+      <tr ng-repeat="c in cardioExercises" ng-if="cardioExercises.length">
 	<td>{{ c.name }}</td>
 	<td>{{ c.distance }}</td>
 	<td>{{ c.time }}</td>

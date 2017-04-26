@@ -1,6 +1,6 @@
 angular.module('workoutApp')
 
-.factory('DB', function(GainsDB) {
+.factory('DB', function($q) {
     var self = this;
     self.db = null;
 
@@ -20,6 +20,7 @@ angular.module('workoutApp')
         };
         self.db.transaction(populateDB, errorCB);
     };
+    return self;
 })
 
 // exerciseService (get exercise data, add exercise, calculate exercise cals)

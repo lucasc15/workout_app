@@ -28,7 +28,7 @@ angular.module('workoutApp')
                 if ($scope.selectedExerciseType != null) {
                     exerciseService.addExercise(
                         $scope.selectedExerciseType.pk,
-                        $scope.newExerciseName;
+                        $scope.newExerciseName
                     );
                     $scope.getExercises();
                 }
@@ -45,9 +45,8 @@ angular.module('workoutApp')
             $scope.getExercises();
         }
     ])
-    .controller('workoutController', ['$scope', 'workoutService', 'exerciseService', 'caloryService', 'personalDataService'
-
-        function($scope, workoutService, exerciseService, caloryService, personalDataService) {
+    .controller('workoutController', ['$scope', 'workoutService', 'exerciseService', 'caloryService', 'personalDataService',
+    function($scope, workoutService, exerciseService, caloryService, personalDataService) {
             $scope.hideNewExerciseForm = true;
             $scope.hideCardio = true;
             $scope.hideWeight = false;
@@ -144,7 +143,7 @@ angular.module('workoutApp')
             $scope.getCardioExercises();
         }
     ])
-    .controller('personalDataController', ['$scope', 'personalDataService'],
+    .controller('personalDataController', ['$scope', 'personalDataService',
         function($scope, personalDataService) {
             $scope.currentWeight = 0;
             $scope.personalData = [];
@@ -171,11 +170,11 @@ angular.module('workoutApp')
             $scope.getPersonalData();
         }
     ])
-.controller('visualizationController', ['$scope', 'workoutService', 'exerciseService', 'personalDataService'],
-function($scope, workoutService, exerciseService, personalDataService) {
-    $scope.personalData = [];
-    $scope.workouts = [];
-    $scope.exerciseTypes = [];
-    $scope.exercises = [];
-}
+    .controller('visualizationController', ['$scope', 'workoutService', 'exerciseService', 'personalDataService',
+    function($scope, workoutService, exerciseService, personalDataService) {
+        $scope.personalData = [];
+        $scope.workouts = [];
+        $scope.exerciseTypes = [];
+        $scope.exercises = [];
+    }
 ]);

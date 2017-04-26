@@ -14,11 +14,11 @@ angular.module('workoutApp')
 
         });
 
-        var query = 'CREATE TABLE IF NOT EXISTS EXERCISETYPES (id INTEGER PRIMARY KEY AUTOINCREMENT, name text, part text, kWeight float, kReps float, kSets float, kDistance float, kTime float, kBodyWeight, calories float)';
+        var query = 'CREATE TABLE IF NOT EXISTS EXERCISETYPES (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, part TEXT, isWeight, kWeight FLOAT, kReps FLOAT, kSets FLOAT, kDistance FLOAT, kTime FLOAT, kBodyWeight, calories FLOAT)';
         var query2 = 'CREATE TABLE IF NOT EXISTS EXERCISES (id INTEGER PRIMARY KEY AUTOINCREMENT, name text, exerciseType integer, FOREIGN KEY(exerciseType) REFERENCES EXERCISETYPES(id))';
-        var query3 = 'CREATE TABLE IF NOT EXISTS MYWORKOUT (id INTEGER PRIMARY AUTOINCREMENT, workout integer, FOREIGN KEY(workout) REFERENCES EXERCISES(id), reps integer, sets integer, weight integer, notes text, date datetime)';
-        var query4 = 'CREATE TABLE IF NOT EXISTS MYDATA (id INTEGER PRIMARY AUTOINCREMENT, date datetime, weight float)';
-        var query5 = 'CREATE TABLE IF NOT EXISTS CARDIO (id INTEGER PRIMARY AUTOINCREMENT, time float, distance float, notes text, date datetime)';
+        var query3 = 'CREATE TABLE IF NOT EXISTS MYWORKOUT (id INTEGER PRIMARY KEY AUTOINCREMENT, workout integer, reps integer, sets integer, weight integer, notes text, date datetime, FOREIGN KEY(workout) REFERENCES EXERCISES(id))';
+        var query4 = 'CREATE TABLE IF NOT EXISTS MYDATA (id INTEGER PRIMARY KEY AUTOINCREMENT, date datetime, weight float)';
+        var query5 = 'CREATE TABLE IF NOT EXISTS CARDIO (id INTEGER PRIMARY KEY AUTOINCREMENT, time float, distance float, notes text, date datetime)';
         self.query(query);
         self.query(query2);
         self.query(query3);
@@ -34,22 +34,65 @@ angular.module('workoutApp')
             transaction.executeSql(query, bindings, function(transaction, result) {
                 deferred.resolve(result);
             }, function(transaction, error) {
+		console.log("DB Error: " + error);
                 deferred.reject(error);
             });
         });
         return deferred.promise;
     }
+
+    self.insertBaseExerciseTypesData = function() {
+	var exerciseTypeData = [
+	    ["Bench", "Chest", 1, 1, 1, 1, 1, 1, 1,],
+	    ["Squat", "Legs", 1, 1, 1, 1, 1, 1, 1,],
+	    ["Curls", "Biceps", 1, 1, 1, 1, 1, 1, 1,],
+	]
+	var sql = "INSERT INTO EXERCISETYPES (name, part, kWeight, kReps, kSets, kDistance, kTime, kBodyWeight, calories) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	for (var i = 0; i < exerciseTypeData.length; i++) {
+	    self.query(sql, exerciseTypeData[i]);
+	}
+    }
+
+    self.insertBaseExerciseData = function() {
+	var exrciseData = [
+	    ["Bench"],
+	    ["Squat"],
+	    ["Curls"]
+	];
+	var sql = "INSERT INTO EXERCISES (name, exerciseType) VALUES ((SELECT id FROM EXERCISETYPES WHERE name = ?), ?);";
+	for (var i = 0; i < exerciseData.length; i++) {
+	    self.query(sql, exerciseData[i]);
+	}
+    }
+
+    self.initBaseData = function() {
+	self.query("SELECT * FROM EXERCISETYPES", []).then(function(result){
+	    if (result.rows.length <= 0) {
+		self.insertBaseExerciseTypesData();
+	    }
+	});
+	self.query("SELECT * FROM EXERCISES", []).then(function(result){
+	    if (reuslt.rows.length <= 0) {
+		self.insertBaseExerciseData();
+	    }
+	}
+    }
+
     return self;
 })
 
 // exerciseService (get exercise data, add exercise, calculate exercise cals)
 .factory('exerciseService', function(DB) {
     var services = {
-        getExercise: function() {
+        getExerciseTypes: function() {
             return DB.query('SELECT * FROM EXERCISETYPES');
         },
-        addExercise: function() {
-
+	getExercises: function() {
+	    return DB.query('SELECT * FROM EXERCISES');
+	},
+        addExercise: function(exerciseTypePk, name) {
+	    return DB.query('INSERT INTO EXERCISES (name, exerciseType) VALUES (?, ?)',
+			    [exerciseTypePk, name]); 
         },
         parseExercises: function(result) {
             var exercises = [];

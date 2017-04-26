@@ -1,4 +1,8 @@
 var app = angular.module('workoutApp', ['ui.router'])
+    .run(function(DB) {
+	 console.log("DB: " + DB);
+         DB.init();
+     })
     .config(
         ['$stateProvider', '$urlRouterProvider',
             function($stateProvider, $urlRouterProvider) {

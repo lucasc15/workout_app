@@ -1,3 +1,11 @@
+var getSQLRowsAsArray = function(result) {
+    var arr = [];
+    for (var i = 0; i < result.rows.length; i++) {
+	arr.push(result.rows.item(i));
+    }
+    return arr;
+}
+
 angular.module('workoutApp')
     .controller('exerciseController', ['$scope', 'exerciseService',
         function($scope, exerciseService) {
@@ -10,8 +18,9 @@ angular.module('workoutApp')
 
             $scope.getExerciseTypes = function() {
                 // get exercise types for dropdown to create new exercises
-                exerciseService.getExercises().then(function(result) {
-                    $scope.exerciseTypes = exerciseService.parseExerciseTypes(result);
+                exerciseService.getExerciseTypes().then(function(result) {
+                    $scope.exerciseTypes = getSQLRowsAsArray(result);
+		    $scope.exerciseTypeMap = exerciseService.createExerciseTypeMap($scope.exerciseTypes);
                     $scope.selectedExerciseType = $scope.exerciseTypes[0]
                 });
             }
@@ -19,7 +28,7 @@ angular.module('workoutApp')
             $scope.getExercises = function() {
                 // populate table with current exercises
                 exerciseService.getExercises().then(function(result) {
-                    $scope.exercises = exerciseService.parseExercises(result);
+                    $scope.exercises = getSQLRowsAsArray(result);
                 });
             }
 
@@ -27,13 +36,17 @@ angular.module('workoutApp')
                 // adds new exercises to the database;
                 if ($scope.selectedExerciseType != null) {
                     exerciseService.addExercise(
-                        $scope.selectedExerciseType.pk,
+                        $scope.selectedExerciseType.id,
                         $scope.newExerciseName
                     );
                     $scope.getExercises();
                 }
                 // $scope.hideNewExerciseForm();
             }
+
+	    $scope.getExerciseBodyPart = function(model) {
+		return $scope.exerciseTypeMap[model.exerciseType].part;
+	    }
 
             $scope.toggleNewExerciseForm = function() {
                 // function to hide new data input form
@@ -62,15 +75,15 @@ angular.module('workoutApp')
 
             $scope.getWeightExercises = function() {
                 // retrieve weight exercises;
-                exerciseService.getCurrentWeightWorkout().then(function(result) {
-                    $scope.weightExercises = workoutService.parseWorkoutExercises(result);
+                workoutService.getCurrentWeightWorkout().then(function(result) {
+                    $scope.weightExercises = result;
                 });
             }
 
             $scope.getCardioExercises = function() {
                 // retrieve cardio exercises;
                 workoutService.getCurrentCardioWorkout().then(function(result) {
-                    $scope.cardioExercises = workoutService.parseWorkoutExercises(result);
+                    $scope.cardioExercises = result;
                 });
                 // TODO calculate calories + add to each exercise;
                 // TODO get name from exercise map and add to each exercise;
@@ -78,7 +91,7 @@ angular.module('workoutApp')
 
             $scope.getExercises = function() {
                 exerciseService.getExercises().then(function(result) {
-                    $scope.exercises = exerciseService.parseExercises(result);
+                    $scope.exercises = result;
                     $scope.exerciseMap = exerciseService.createExerciseMap($scope.exercises);
                 });
                 // TODO calculate calories + add to each exercise
@@ -88,7 +101,7 @@ angular.module('workoutApp')
             $scope.getExerciseTypes = function() {
                 // retrieve exercise types
                 exerciseService.getExerciseTypes().then(function(result) {
-                    $scope.exerciseTypes = exerciseService.parseExercises(result);
+                    $scope.exerciseTypes = result;
                     $scope.exerciseTypeMap = exerciseService.createExerciseTypeMap($scope.exerciseTypes);
                 });
             }
@@ -132,7 +145,11 @@ angular.module('workoutApp')
 
             $scope.getCurrentWeight = function() {
                     personalDataService.getCurrentWeight().then(function(result) {
-                        $scope.currentWeight = result.rows.item(0)[1] || 75;
+			if (result.rows.length > 0) {
+                            $scope.currentWeight = result.rows.item(0).weight;
+			} else {
+			    $scope.currentWeight = 75;
+			}
                     });
                 }
                 // Controller init to get data;
@@ -152,7 +169,7 @@ angular.module('workoutApp')
             $scope.getPersonalData = function() {
                 // function to retrieve all the personal data points
                 personalDataService.getPersonalData().then(function(result) {
-                    $scope.personalData = personalDataService.parsePersonalData(result);
+                    $scope.personalData = result;
                     $scope.currentWeight = $scope.personalData[0];
                 });
                 $scope.personalData = personalDataService.getPersonalData();

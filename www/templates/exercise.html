@@ -6,14 +6,12 @@
 	<tr>
           <th>Name</th>
           <th>Type</th>
-          <th>Cals</th>
 	</tr>
       </thead>
       <tbody>
 	<tr ng-repeat="e in exercises">
-	  <td> {{ e.Name }} </td>
-	  <td> {{ e.Type }} </td>
-	  <td> {{ e.Cals }} </td>
+	  <td> {{ e.name }} </td>
+	  <td> {{ getExerciseBodyPart(e) }} </td>
 	</tr>
       </tbody>
     </table>
@@ -31,7 +29,7 @@
     </div>
     <div class="form-group">
       <label for="sel1"> Type</label>
-      <select class="form-control" id="sel1" ng-model="selectedExercise" ng-options="e.Name for e in exerciseTypes">
+      <select class="form-control" id="sel1" ng-model="selectedExercise" ng-options="e.name for e in exerciseTypes">
       </select>
     </div>
     <button ng-click="addExercise()" class="btn btn-default">Submit</button>

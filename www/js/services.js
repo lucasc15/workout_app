@@ -14,11 +14,11 @@ angular.module('workoutApp')
 
     self.init = function() {
 
-	//if (window.hasOwnProperty('sqlitePlugin')) {
-	//    self.db = window.sqlitePlugin.openDatabase({ name: "GainsDB", location: 'default' });
-	//} else {
+	if (window.hasOwnProperty('sqlitePlugin')) {
+	    self.db = window.sqlitePlugin.openDatabase({ name: "GainsDB", location: 'default' });
+	} else {
 	    self.db = $window.openDatabase("GainsDB", '1', 'my', 1024 * 1024 * 100); 
-	//}
+	}
 
         var query = 'CREATE TABLE IF NOT EXISTS EXERCISETYPES (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, part TEXT, isWeight INTEGER, kBody FLOAT, kLength FLOAT, kDistance FLOAT, kTime FLOAT)';
         var query2 = 'CREATE TABLE IF NOT EXISTS EXERCISES (id INTEGER PRIMARY KEY AUTOINCREMENT, name text, exerciseType integer, FOREIGN KEY(exerciseType) REFERENCES EXERCISETYPES(id))';

@@ -7,15 +7,17 @@
       <tr ng-if="weightExercises.length">
         <th>Name</th>
         <th>Reps</th>
+	<th>Sets</th>
         <th>Weight</th>
         <th>Cals</th>
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="w in weightExercises" ng-id="weightExercises.length">
-	<td>{{ w.name }}</td>
+      <tr ng-repeat="w in weightExercises" ng-if="weightExercises.length">
+	<td>{{ getExerciseName(w) }}</td>
 	<td>{{ w.reps }}</td>
 	<td>{{ w.sets }}</td>
+	<td>{{ w.weight }}
 	<td>{{ w.cals }}</td>
 	<td>{{ w.notes }}</td>
       </tr>
@@ -26,7 +28,7 @@
 	<th>Cals</th>
       </tr>
       <tr ng-repeat="c in cardioExercises" ng-if="cardioExercises.length">
-	<td>{{ c.name }}</td>
+	<td>{{ getExerciseName(c) }}</td>
 	<td>{{ c.distance }}</td>
 	<td>{{ c.time }}</td>
 	<td>{{ c.cals }}</td>
@@ -44,25 +46,42 @@
 </p>
 <br>
 <div class="collapse" id="collapseExample">
+  
   <div class="form-group">
       <label for="sel1">Name</label>
       <select class="form-control" id="sel1" ng-model="selectedExercise" ng-options="e.name for e in exercises">
      </select>
    </div>
-	
-  <div class="form-group">
-    <label for="data">Reps</label>
-    <input type="data" class="form-control" id="data">
-  </div>
+   <div class="form-group has-error">
+     <span class="help-block" ng-if="errors != ''">{{ errors }}</span>
+   </div>
+   <div class="form-group" ng-hide="!toggleHideCardio()">
+     <label for="data">Reps</label>
+     <input type="data" class="form-control" id="data" ng-model="newReps">
+   </div>
 
-  <div class="form-group">
-    <label for="data">Sets</label>
-    <input type="data" class="form-control" id="data">
-  </div>
+   <div class="form-group" ng-hide="!toggleHideCardio()">
+     <label for="data">Sets</label>
+     <input type="data" class="form-control" id="data" ng-model="newSets">
+   </div>
 
+   <div class="form-group" ng-hide="!toggleHideCardio()">
+     <label for="data">Weight (lbs)</label>
+     <input type="data" class="form-control" id="data" ng-model="newWeight">
+   </div>
+
+   <div class="form-group" ng-hide="toggleHideCardio()">
+     <label for="data">Time (minutes)</label>
+     <input type="data" class="form-control" id="data" ng-model="newTime">
+   </div>
+
+  <div class="form-group" ng-hide="toggleHideCardio()">
+    <label for="data">Distance (km)</label>
+    <input type="data" class="form-control" id="data" ng-model="newDistance">
+  </div>
   <div class="form-group">
-    <label for="data">Weight</label>
-    <input type="data" class="form-control" id="data">
+    <label for="data">Notes</label>
+    <input type="data" class="form-control" id="data" ng-model="notes">
   </div>
   <button ng-click="addWorkoutExercise()" class="btn btn-default">Submit</button>
 </div> <!-- End collapse -->

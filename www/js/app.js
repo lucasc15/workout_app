@@ -40,7 +40,7 @@ var app = angular.module('workoutApp', ['ui.router'])
                     .state('workouts', {
                         url: '/workouts',
                         templateUrl: 'templates/workout.html',
-                        controller: 'workoutListController'
+                        controller: 'workoutController'
                     });
             }
         ]

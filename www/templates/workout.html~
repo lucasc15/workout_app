@@ -1,0 +1,17 @@
+<div class="container">
+  <h2> Workout Log</h2>
+  <div class="table-responsive" >
+    <table class="table">
+      <thead>
+	<tr>
+	  <th>Date</th>
+	</tr>
+      </thead>
+      <tbody>
+	<tr ng-repeat="workout in workouts">
+	  <td>{{ workout.date }}</td>
+	</tr>
+      </tbody>
+    </table>
+  </div>
+</div>

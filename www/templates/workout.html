@@ -1,0 +1,47 @@
+<div class="container">
+  <h2> Workout Log</h2>
+  <div class="table-responsive" >
+    <table class="table">
+      <thead>
+	<tr>
+	  <th>Date</th>
+	</tr>
+      </thead>
+      <tbody>
+	<tr ng-repeat="workout in workouts track by $index">
+	  <td ng-click="showWorkout(workout)"><a>{{ workout.date }}</a></td>
+	  <tr ng-if="noCardio && noWeights">
+	    <td>No workouts for this date!</td>
+	  </tr>
+	  <tr ng-if="weightExercisesDetail.length">
+	    <th>Name</th>
+	    <th>Distance</th>
+	    <th>Time</th>
+	    <th>Cals</th>
+	  </tr>
+	  <tr ng-repeat="w in weightExercisesDetail track by $index" ng-if="weightExercisesDetail.length">
+	    <td>{{ getExerciseName(w) }}</td>
+	    <td>{{ w.reps }}</td>
+	    <td>{{ w.sets }}</td>
+	    <td>{{ w.weight }}
+	      <td>{{ w.cals }}</td>
+	      <td>{{ w.notes }}</td>
+	  </tr>
+	  <tr ng-if="cardioExercisesDetail.length">
+	    <th>Name</th>
+	    <th>Distance</th>
+	    <th>Time</th>
+	    <th>Cals</th>
+	  </tr>
+	  <tr ng-repeat="c in cardioExercisesDetail track by $index" ng-if="cardioExercisesDetail.length">
+	    <td>{{ getExerciseName(c) }}</td>
+	    <td>{{ c.distance }}</td>
+	    <td>{{ c.time }}</td>
+	    <td>{{ c.cals }}</td>
+	    <td>{{ c.notes }}</td>
+	  </tr>
+	</tr>
+      </tbody>
+    </table>
+  </div>
+</div>

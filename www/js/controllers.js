@@ -1,7 +1,7 @@
 var getSQLRowsAsArray = function(result) {
     var arr = [];
     for (var i = 0; i < result.rows.length; i++) {
-	arr.push(result.rows.item(i));
+        arr.push(result.rows.item(i));
     }
     return arr;
 }
@@ -20,7 +20,7 @@ angular.module('workoutApp')
                 // get exercise types for dropdown to create new exercises
                 exerciseService.getExerciseTypes().then(function(result) {
                     $scope.exerciseTypes = getSQLRowsAsArray(result);
-		    $scope.exerciseTypeMap = exerciseService.createExerciseTypeMap($scope.exerciseTypes);
+                    $scope.exerciseTypeMap = exerciseService.createExerciseTypeMap($scope.exerciseTypes);
                     $scope.selectedExerciseType = $scope.exerciseTypes[0]
                 });
             }
@@ -44,9 +44,9 @@ angular.module('workoutApp')
                 // $scope.hideNewExerciseForm();
             }
 
-	    $scope.getExerciseBodyPart = function(model) {
-		return $scope.exerciseTypeMap[model.exerciseType].part;
-	    }
+            $scope.getExerciseBodyPart = function(model) {
+                return $scope.exerciseTypeMap[model.exerciseType].part;
+            }
 
             $scope.toggleNewExerciseForm = function() {
                 // function to hide new data input form
@@ -218,7 +218,6 @@ angular.module('workoutApp')
 		    }
 		});
 	    }
-            // Controller init to get data;
             $scope.getExerciseTypes();
             $scope.getExercises();
             $scope.getCurrentWeight();
@@ -232,34 +231,31 @@ angular.module('workoutApp')
         function($scope, personalDataService) {
             $scope.currentWeight = 0;
             $scope.personalData = [];
-            $scope.newDate = Date();
-
+            test = new Date();
+            $scope.newDate = test.getFullYear() + '-' + (test.getMonth() + 1) + '-' + test.getDate();
             $scope.getPersonalData = function() {
                 // function to retrieve all the personal data points
                 personalDataService.getPersonalData().then(function(result) {
-                    $scope.personalData = result;
-                    $scope.currentWeight = $scope.personalData[0];
+                    $scope.personalData = getSQLRowsAsArray(result);
                 });
-                $scope.personalData = personalDataService.getPersonalData();
             }
 
             $scope.addPersonalData = function() {
                 // function to add a new personal data to the database
-                personalDataService.addPersonalData(
+                personalDataService.addPersonalData().then(function(result) {
                     $scope.newDate,
-                    $scope.newWeight
-                );
-                $scope.newDate = Date();
+                        $scope.newWeight
+                })
+                $scope.getPersonalData();
             }
-
             $scope.getPersonalData();
         }
     ])
     .controller('visualizationController', ['$scope', 'workoutService', 'exerciseService', 'personalDataService',
-    function($scope, workoutService, exerciseService, personalDataService) {
-        $scope.personalData = [];
-        $scope.workouts = [];
-        $scope.exerciseTypes = [];
-        $scope.exercises = [];
-    }
-]);
+        function($scope, workoutService, exerciseService, personalDataService) {
+            $scope.personalData = [];
+            $scope.workouts = [];
+            $scope.exerciseTypes = [];
+            $scope.exercises = [];
+        }
+    ]);

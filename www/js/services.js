@@ -30,8 +30,8 @@ angular.module('workoutApp')
         self.query(query3);
         self.query(query4);
         self.query(query5);
-	
-	self.initBaseData();
+
+        self.initBaseData();
     };
 
     self.query = function(query, bindings) {
@@ -42,8 +42,8 @@ angular.module('workoutApp')
             transaction.executeSql(query, bindings, function(transaction, result) {
                 deferred.resolve(result);
             }, function(transaction, error) {
-		console.log(query);
-		console.log(error);
+                console.log(query);
+                console.log(error);
                 deferred.reject(error);
             });
         });
@@ -87,16 +87,16 @@ angular.module('workoutApp')
     }
 
     self.initBaseData = function() {
-	self.query("SELECT * FROM EXERCISETYPES", []).then(function(result){
-	    if (result.rows.length <= 0) {
-		self.insertBaseExerciseTypesData();
-	    }
-	});
-	self.query("SELECT * FROM EXERCISES", []).then(function(result){
-	    if (result.rows.length <= 0) {
-		self.insertBaseExerciseData();
-	    }
-	});
+        self.query("SELECT * FROM EXERCISETYPES", []).then(function(result) {
+            if (result.rows.length <= 0) {
+                self.insertBaseExerciseTypesData();
+            }
+        });
+        self.query("SELECT * FROM EXERCISES", []).then(function(result) {
+            if (result.rows.length <= 0) {
+                self.insertBaseExerciseData();
+            }
+        });
     }
     return self;
 })
@@ -107,12 +107,11 @@ angular.module('workoutApp')
         getExerciseTypes: function() {
             return DB.query('SELECT * FROM EXERCISETYPES');
         },
-	getExercises: function() {
-	    return DB.query('SELECT * FROM EXERCISES');
-	},
+        getExercises: function() {
+            return DB.query('SELECT * FROM EXERCISES');
+        },
         addExercise: function(exerciseTypePk, name) {
-	    return DB.query('INSERT INTO EXERCISES (name, exerciseType) VALUES (?, ?)',
-			    [name, exerciseTypePk]); 
+            return DB.query('INSERT INTO EXERCISES (name, exerciseType) VALUES (?, ?)', [name, exerciseTypePk]);
         },
         createExerciseTypeMap: function(exerciseTypes) {
             exerciseTypeMap = {};
@@ -175,15 +174,19 @@ angular.module('workoutApp')
 // personalDataService(add weight data, get weight data)
 .factory('personalDataService', function(DB) {
     var services = {
-        addWeight: function() {
-            DB.transaction('INSERT INTO MYDATA (date, weight) VALUES ()')
+        addPersonalData: function() {
+            if (isNaN(document.getElementById("txtWeight").value)) {
+                alert("Please enter a number");
+            } else {
+                return DB.query('INSERT INTO MYDATA (date, weight) VALUES ("' + document.getElementById("txtDate").value + '","' + document.getElementById("txtWeight").value + '")');
+            }
         },
-        getWeight: function() {
+        getPersonalData: function() {
             return DB.query('SELECT * FROM MYDATA')
         },
-	getCurrentWeight: function() {
-	    return DB.query('SELECT weight FROM MYDATA ORDER BY date DESC LIMIT 1');
-	},
+        getCurrentWeight: function() {
+            return DB.query('SELECT weight FROM MYDATA ORDER BY date DESC LIMIT 1');
+        },
         parsePersonalData: function(result) {
             var personalData = [];
             var item;

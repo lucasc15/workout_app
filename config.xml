@@ -5,5 +5,4 @@
     <author>Lucas Currah, Vu Nguyen, Jon Nagata</author>
     <content src="index.html" />
     <access origin="*" />
-    <plugin name="cordova-sqlite-storage" spec="~2.0.3" />
 </widget>

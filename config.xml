@@ -5,5 +5,6 @@
     <author>Lucas Currah, Vu Nguyen, Jon Nagata</author>
     <content src="index.html" />
     <access origin="*" />
-    <plugin name="cordova-sqlite-storage" spec="~2.0.3" />
+    <preference name="phonegap-version" value="cli-6.3.0" /> 
+    <plugin name="cordova-sqlite-storage" version="1.2.1" />
 </widget>
